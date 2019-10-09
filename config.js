@@ -1,8 +1,8 @@
 exports.database = {
 	connectionLimit : 10,
-	host: '47.98.203.183',
+	host: '127.0.0.1',
  	user: 'root',
-	password : 'jinglianwen123456',
+	password : '*******',
   	port: '3316',
   	database: 'platform',
 }
