@@ -1,0 +1,119 @@
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>我的页面</title>
+
+  <!-- Favicons -->
+  <link href="/public/img/favicon.png" rel="icon">
+  <link href="/public/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="/public/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="/public/css/zabuto_calendar.css">
+  <link rel="stylesheet" type="text/css" href="/public/lib/gritter/css/jquery.gritter.css" />
+  <!-- Custom styles for this template -->
+  <link href="/public/css/style.css" rel="stylesheet">
+  <link href="/public/css/style-responsive.css" rel="stylesheet">
+  <script src="/public/lib/chart-master/Chart.js"></script>
+  <script src="/public/lib/vue.js"></script>
+  <script src="/public/lib/flv.min.js"></script>
+  <script src="/public/lib/jquery/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <%include ./bar.ejs%>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <%include ./sidebar.ejs%>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+   <section id="main-content">
+     <section class="wrapper site-min-height">
+      <div><%=course.ID%></div>
+      <div><%=course.name%></div>
+      <div><%=urlHix+course.URL%></div>
+
+      <div class="mainContainer">
+        <video id="videoElement" class="centeredVideo" autoplay poster="/public/upload/29e371e41a7f8ce3b572d033895616ae.jpg" width="1024" height="576">该课程目前未开始</video>
+      </div>
+      <br>
+      <div class="controls">
+          <!--<button onclick="flv_load()">加载</button>-->
+          <button onclick="flv_start()">开始</button>
+          <button onclick="flv_pause()">暂停</button>
+          <button onclick="flv_destroy()">停止</button>
+      </div>
+    </section>
+  </section>
+    <!--main content end-->
+    <!--footer start-->
+    <%include ./foot.ejs%>
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+
+
+  <script src="/public/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="/public/lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="/public/lib/jquery.scrollTo.min.js"></script>
+  <script src="/public/lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="/public/lib/jquery.sparkline.js"></script>
+  <!--common script for all pages-->
+  <script src="/public/lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script src="/public/lib/sparkline-chart.js"></script>
+  <script src="/public/lib/zabuto_calendar.js"></script>
+  <script type="text/javascript" >
+  var videoElement = document.getElementById('videoElement');
+  var flvPlayer = flvjs.createPlayer({
+      type: 'flv',
+      url: '<%=urlHix+course.URL%>.flv',
+      isLive: true
+  });
+
+  if (flvjs.isSupported()) {
+      flvPlayer.attachMediaElement(videoElement);
+      flvPlayer.load(); //加载
+      flvPlayer.play();
+  }
+
+  function flv_start() {
+      flvPlayer.play();
+  }
+
+  function flv_pause() {
+      flvPlayer.pause();
+  }
+
+  function flv_destroy() {
+      flvPlayer.pause();
+      flvPlayer.unload();
+      flvPlayer.detachMediaElement();
+      flvPlayer.destroy();
+      flvPlayer = null;
+  }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>登录</title>
+
+  <!-- Favicons -->
+  <link href="/public/img/favicon.png" rel="icon">
+  <link href="/public/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="/public/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="/public/css/style.css" rel="stylesheet">
+  <link href="/public/css/style-responsive.css" rel="stylesheet">
+  <script src="/public/lib/jquery/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+  <div id="login-page">
+    <div class="container">
+      <form class="form-login" action="/loginact" method="post">
+        <h2 class="form-login-heading">登录</h2>
+        <div class="login-wrap">
+          <input type="text" name="username" class="form-control" placeholder="邮箱" autofocus>
+          <br>
+          <input type="password" name="pass" class="form-control" placeholder="密码">
+          <% if(typeof(tip)!='undefined'){%>
+                <p><font color='red'>密码错误！</font></p>
+          <%}%>
+          <label class="checkbox">
+            <input type="checkbox" name="remember" value="remember-me"> 记住我
+            <span class="pull-right">
+            <a data-toggle="modal" href="login.ejs#myModal"> 忘记密码?</a>
+            </span>
+            </label>
+          <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> 登录</button>
+          <hr>
+          <div class="registration">
+            没有账号?<br/>
+            <a data-toggle="modal" href="login.ejs#singup">
+              创建账号
+              </a>
+          </div>
+        </div>
+      </form>
+      <!-- Modal -->
+
+      <form class="form-login" action="/forgot">
+       <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">忘记密码 ?</h4>
+              </div>
+              <div class="modal-body">
+                <p>输入您的邮箱来重置密码</p>
+                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+              </div>
+              <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                <button class="btn btn-theme" type="submit">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+
+        <!-- modal -->
+        <!-- singup-->
+
+        <form class="form-login" action="/regist" method="post" enctype="multipart/form-data">
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="singup" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">注册 ?</h4>
+              </div>
+              <div class="modal-body">
+                <p id="nametext">请输入您的注册邮箱！</p>
+                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix" id="Remail">
+              </div>
+              <div class="modal-body">
+                <p>请输入您的用户名</p>
+                <input type="text" name="username" placeholder="Username" id="username" autocomplete="off" class="form-control placeholder-no-fix">
+              </div>
+              <div class="modal-body">
+                <p>请输入您的密码</p>
+                <input type="password" name="pass" id="pwd" placeholder="Password" autocomplete="off" class="form-control placeholder-no-fix">
+              </div>
+              <div class="modal-body">
+                <p id="pwdtext">请确认您的密码</p>
+                <input type="password" name="pass_check" id="pwdaga" placeholder="Password" autocomplete="off" class="form-control placeholder-no-fix">
+              </div>
+              <div class="modal-body">
+                <p>请选择一张头像</p>
+                <input type="file" name="heardfile" accept="image/*" id="InputFile" class="file-pos">
+              </div>
+			  <div class="modal-body">
+			  <img id='heardimg' height="200" width="200"  src=''/>
+			  </div>
+              <div id="checkpoint" class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                <button class="btn btn-theme" type="submit" id="Rbtn" disabled="disabled">注册</button>
+              </div>
+            </div>
+          </div>
+        <script>
+		<% if(typeof(isreg)!='undefined'){ %>
+			alert("注册成功！！！");
+		<% } %>
+		$('#InputFile').change(function(){
+		  var $file = $(this);
+		  var fileObj = $file[0];
+		  var windowURL = window.URL || window.webkitURL;
+		  var dataURL;
+		  var $img = $('#heardimg');
+		  if (fileObj && fileObj.files && fileObj.files[0]) {
+			  dataURL = windowURL.createObjectURL(fileObj.files[0]);
+			  $img.attr('src', dataURL);
+		  } else {
+			  dataURL = $file.val();
+			  var imgObj = document.getElementById("preview");
+			  imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+			  imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+		  }
+		   });
+          var isOk = false;
+          $("#Remail").blur(function(){
+            var email = $("#Remail").val();
+            //alert(email);
+            if(email == ''){
+              return ;
+            }
+            var obj ={
+                url:"/check",
+                type: "post",
+                data:{"email":email},
+                dataType:"json",
+                async:true,
+                success:function(result){
+
+                  if(result["isReg"] == true){
+                    $("#nametext").html("请输入您的注册邮箱！<b><font color='red'>该邮箱已经被注册</font></b>");
+                    isOk = false;
+                  }else{
+                    $("#nametext").html("请输入您的注册邮箱！");
+                    isOk = true;
+                  }
+                }
+            };
+            $.ajax(obj);
+          });
+          $("#pwdaga").blur(function(){
+
+            var first = $("#pwd").val();
+            var second = $("#pwdaga").val();
+            if(first == second){
+              $("#pwdtext").html("请确认您的密码");
+            }else{
+              $("#pwdtext").html("请确认您的密码<b><font color='red'> 密码不一致</font></b>");
+            }
+          });
+          $("#checkpoint").mouseover(function(){
+            var first = $("#pwd").val();
+            var second = $("#pwdaga").val();
+            var email = $("#Remail").val();
+            var name = $("#username").val();
+            var file = $("#InputFile").val();
+            if(first!='' && second!='' && email != '' && name != '' && first == second && file != '' && isOk == true){
+              $("#Rbtn").removeAttr("disabled");
+            }else{
+              
+            }
+          });
+        </script>
+        </div>
+        </form>
+
+
+        <!-- singup-->
+    </div>
+  </div>
+  <!-- js placed at the end of the document so the pages load faster -->
+
+  <script src="/public/lib/bootstrap/js/bootstrap.min.js"></script>
+  <!--BACKSTRETCH-->
+  <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+  <script type="text/javascript" src="/public/lib/jquery.backstretch.min.js"></script>
+  <script>
+    $.backstretch("/public/img/login-bg.jpg", {
+      speed: 500
+    });
+  </script>
+</body>
+
+</html>

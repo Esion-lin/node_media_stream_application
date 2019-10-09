@@ -1,0 +1,25 @@
+<aside >
+      <div id="sidebar" class="nav-collapse " style="z-index:100;">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="/profile"><img src="/public/upload/<%=user.src%>" class="img-circle" width="80"></a></p>
+          <h5 class="centered"><%= user.user %></h5>
+          <li class="mt">
+            <a class="active" href="index">
+              <i class="fa fa-dashboard"></i>
+              <span>所有课程</span>
+              </a>
+          </li>
+		  <%if(user.type==1){%>
+          <li class="sub-menu">
+            <a href="mycourses">
+              <i class="fa fa-desktop"></i>
+              <span>我的课程</span>
+              </a>
+          </li>
+		  <%}%>
+
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
