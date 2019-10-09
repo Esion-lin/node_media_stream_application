@@ -1,11 +1,3 @@
-###说明
+提供直播服务的web服务器
 
-####数据字典
-
-用户表（user_table）
-用户ID	|ID 	|int
-用户名	|user	|varchar(45)
-用户密码	|pwd	|varchar(45)
-手机号	|phone	|varchar(20)
-类型		|type	|bool
-
+需要配合obs使用
